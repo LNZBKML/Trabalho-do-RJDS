@@ -1,0 +1,38 @@
+#include <Servo.h>
+
+Servo servo_2;
+
+void setup()
+{
+  pinMode(A0, INPUT);
+  pinMode(A1, INPUT);
+  pinMode(A2, INPUT);
+  
+  Serial.begin(9600);
+  servo_2.attach(2, 500, 2500);
+}
+
+void loop()
+{
+  Serial.print(analogRead(A0));
+  Serial.print(",");
+  Serial.print(analogRead(A1));
+  Serial.print(",");
+  Serial.println(analogRead(A2));
+  
+  if (analogRead(A2) >= 575) {
+  	if (analogRead(A0) <575 or analogRead(A1) < 575) {
+  	  servo_2.write(60);
+  	  delay(150); // Wait for 150 millisecond(s)
+  	} else {
+  	  servo_2.write(0);
+  	}
+  } else {
+    if (analogRead(A0) >= 575 or analogRead(A1) >= 575) {
+  	  servo_2.write(60);
+  	  delay(150); // Wait for 150 millisecond(s)
+  	} else {
+  	  servo_2.write(0);
+  	}
+  }  
+}
